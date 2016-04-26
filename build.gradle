@@ -1,0 +1,27 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'fr.brouillard.oss.gradle'
+version = '0'
+
+repositories {
+    mavenCentral()
+    if (new File("d:/dev/mlr").exists()) {
+      maven {
+        url "file://d:/dev/mlr"
+      }
+    }
+}
+
+dependencies {
+    compile gradleApi()
+    compile 'fr.brouillard.oss:jgitver:0.+'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file://d:/dev/mlr")
+        }
+    }
+}
