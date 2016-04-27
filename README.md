@@ -1,13 +1,30 @@
 # gradle-jgitver-plugin
 
-gradle plugin to define project version using [jgitver](https://github.com/McFoggy/jgitver)
+gradle plugin to define project version using [jgitver](https://github.com/McFoggy/jgitver).
+
+Starting from version _0.0.1_ [gradle-jgitver-plugin](https://github.com/jgitver/gradle-jgitver-plugin) is now published to the [gradle plugin portal](https://plugins.gradle.org/plugin/fr.brouillard.oss.gradle.jgitver).
 
 ## Usage
 
-add to you gradle.build `apply plugin: 'fr.brouillard.oss.gradle.jgitver'`
+see the project [build.gradle](build.gradle) to see how the project is using itself to manage its own versions.
 
-In this version, no configuration is possible.
-The plugin uses [jgitver](https://github.com/McFoggy/jgitver) with:
+```
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "gradle.plugin.fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.0.1"
+  }
+}
+
+apply plugin: 'fr.brouillard.oss.gradle.jgitver'
+```
+
+In the current version, no configuration is possible.
+The plugin uses [jgitver](https://github.com/McFoggy/jgitver) with the following settings:
 
 - _autoIncrementPatch_: `true`
 - _nonQualifierBranches_: `master`

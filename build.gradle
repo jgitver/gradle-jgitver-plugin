@@ -6,14 +6,15 @@ buildscript {
   }
   dependencies {
     classpath "com.gradle.publish:plugin-publish-plugin:0.9.4"
+    classpath "gradle.plugin.fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.0.1"
   }
 }
 
 apply plugin: "com.gradle.plugin-publish"
+apply plugin: 'fr.brouillard.oss.gradle.jgitver'
 apply plugin: 'java'
 
 group = 'fr.brouillard.oss.gradle'
-version = '0.0.1'
 
 repositories {
     jcenter()
