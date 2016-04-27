@@ -33,7 +33,9 @@ The plugin uses [jgitver](https://github.com/McFoggy/jgitver) with the following
 
 ## Documentation
 
-See [jgitver](https://github.com/McFoggy/jgitver) & [maven-external-version-jgitver](https://github.com/McFoggy/maven-external-version-jgitver) to understand what it does
+See [jgitver](https://github.com/McFoggy/jgitver) & [maven-external-version-jgitver](https://github.com/McFoggy/maven-external-version-jgitver) to better understand what it does
+
+![Example](src/doc/images/s1_linear_with_only_annotated_tags_autoIncrement.gif?raw=true "Example")
 
 ## Release to gradle plugin portal
 
