@@ -1,27 +1,40 @@
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "com.gradle.publish:plugin-publish-plugin:0.9.4"
+  }
+}
+
+apply plugin: "com.gradle.plugin-publish"
 apply plugin: 'java'
-apply plugin: 'maven'
 
 group = 'fr.brouillard.oss.gradle'
-version = '0'
+version = '0.0.1'
 
 repositories {
+    jcenter()
     mavenCentral()
-    if (new File("d:/dev/mlr").exists()) {
-      maven {
-        url "file://d:/dev/mlr"
-      }
+}
+
+pluginBundle {
+  website = 'http://oss.brouillard.fr/projects/gradle-jgitver-plugin'
+  vcsUrl = 'https://github.com/jgitver/gradle-jgitver-plugin'
+  description = 'gradle plugin that defines automatically project version using jgitver'
+  tags = ['versioning', 'jgitver', 'git']
+
+  plugins {
+    jgitverPlugin {
+      id = 'fr.brouillard.oss.gradle.jgitver'
+      displayName = 'jgitver Gradle plugin'
     }
+  }
 }
 
 dependencies {
     compile gradleApi()
-    compile 'fr.brouillard.oss:jgitver:0.+'
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "file://d:/dev/mlr")
-        }
-    }
+    compile 'fr.brouillard.oss:jgitver:0.0.1'
 }

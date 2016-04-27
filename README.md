@@ -17,3 +17,7 @@ The plugin uses [jgitver](https://github.com/McFoggy/jgitver) with:
 ## Documentation
 
 See [jgitver](https://github.com/McFoggy/jgitver) & [maven-external-version-jgitver](https://github.com/McFoggy/maven-external-version-jgitver) to understand what it does
+
+## Release to gradle plugin portal
+
+`./gradlew publishPlugins`
