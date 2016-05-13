@@ -6,7 +6,7 @@ buildscript {
   }
   dependencies {
     classpath "com.gradle.publish:plugin-publish-plugin:0.9.4"
-    classpath "gradle.plugin.fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.0.1"
+    classpath "gradle.plugin.fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.0.2-4"
   }
 }
 
@@ -38,4 +38,10 @@ pluginBundle {
 dependencies {
     compile gradleApi()
     compile 'fr.brouillard.oss:jgitver:0.1.0'
+}
+
+task version {
+    doLast {
+        println 'Version: ' + version
+    }
 }

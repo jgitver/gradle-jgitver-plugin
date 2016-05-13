@@ -54,6 +54,30 @@ You can also have a look at the maven equivalent: [jgitver-maven-plugin](https:/
 
 ![Gradle Example](src/doc/images/gradle-example.gif?raw=true "Gradle Example")
 
+### Tips
+
+In order to know the current version of your project, just print out the version in a task looking like the following:
+
+```
+task version {
+    doLast {
+        println 'Version: ' + version
+    }
+}
+```
+
+then just call the task
+
+```
+$ ./gradlew version
+:version
+Version: 0.0.2-4
+
+BUILD SUCCESSFUL
+
+Total time: 5.769 secs
+```
+
 ## Release to gradle plugin portal
 
 `./gradlew publishPlugins`
