@@ -37,5 +37,5 @@ pluginBundle {
 
 dependencies {
     compile gradleApi()
-    compile 'fr.brouillard.oss:jgitver:0.0.1'
+    compile 'fr.brouillard.oss:jgitver:0.1.0'
 }

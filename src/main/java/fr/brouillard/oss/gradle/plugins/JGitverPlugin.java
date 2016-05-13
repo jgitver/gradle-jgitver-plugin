@@ -9,6 +9,7 @@ public class JGitverPlugin implements Plugin<Project> {
     @Override
     public void apply(Project project) {
         String gitCalculatedVersion = GitVersionCalculator.location(project.getRootDir())
+                .setMavenLike(false)
                 .setAutoIncrementPatch(true)
                 .setUseDistance(true)
                 .getVersion();

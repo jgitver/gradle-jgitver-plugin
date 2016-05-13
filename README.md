@@ -26,6 +26,7 @@ apply plugin: 'fr.brouillard.oss.gradle.jgitver'
 In the current version, no configuration is possible.
 The plugin uses [jgitver](https://github.com/McFoggy/jgitver) with the following settings:
 
+- _mavenLike_: `false`
 - _autoIncrementPatch_: `true`
 - _nonQualifierBranches_: `master`
 - _useDistance_: `true`
@@ -33,9 +34,11 @@ The plugin uses [jgitver](https://github.com/McFoggy/jgitver) with the following
 
 ## Documentation
 
-See [jgitver](https://github.com/McFoggy/jgitver) & [maven-external-version-jgitver](https://github.com/McFoggy/maven-external-version-jgitver) to better understand what it does
+See [jgitver](https://github.com/McFoggy/jgitver) for a full understanding of the possibilities and usage.
 
-![Example](src/doc/images/s1_linear_with_only_annotated_tags_autoIncrement.gif?raw=true "Example")
+You can also have a look at the maven equivalent: [jgitver-maven-plugin](https://github.com/jgitver/jgitver-maven-plugin).
+
+![Gradle Example](src/doc/images/gradle-example.gif?raw=true "Gradle Example")
 
 ## Release to gradle plugin portal
 
