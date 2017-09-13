@@ -29,5 +29,5 @@ pluginBundle {
 
 dependencies {
     compile gradleApi()
-    compile 'fr.brouillard.oss:jgitver:0.1.0'
+    compile 'fr.brouillard.oss:jgitver:0.4.0'
 }
