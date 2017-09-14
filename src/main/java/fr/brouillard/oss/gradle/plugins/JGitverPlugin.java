@@ -1,10 +1,14 @@
 package fr.brouillard.oss.gradle.plugins;
 
+import java.util.Arrays;
+import java.util.Locale;
+
 import org.gradle.api.Action;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
 import fr.brouillard.oss.jgitver.GitVersionCalculator;
+import fr.brouillard.oss.jgitver.metadata.Metadatas;
 
 public class JGitverPlugin implements Plugin<Project> {
     @Override
@@ -23,16 +27,25 @@ public class JGitverPlugin implements Plugin<Project> {
                     jgitverConfiguration = new JGitverPluginExtension();
                 }
 
-                String gitCalculatedVersion = GitVersionCalculator.location(project.getRootDir())
+                GitVersionCalculator versionCalculator = GitVersionCalculator.location(project.getRootDir())
                         .setMavenLike(jgitverConfiguration.mavenLike)
                         .setAutoIncrementPatch(jgitverConfiguration.autoIncrementPatch)
                         .setUseDistance(jgitverConfiguration.useDistance)
                         .setUseGitCommitId(jgitverConfiguration.useGitCommitID)
                         .setGitCommitIdLength(jgitverConfiguration.gitCommitIDLength)
-                        .setNonQualifierBranches(jgitverConfiguration.nonQualifierBranches).getVersion();
+                        .setNonQualifierBranches(jgitverConfiguration.nonQualifierBranches);
 
+                String gitCalculatedVersion = versionCalculator.getVersion();
                 project.setVersion(gitCalculatedVersion);
                 project.getAllprojects().forEach(subproject -> subproject.setVersion(gitCalculatedVersion));
+
+                Arrays.asList(Metadatas.values()).forEach(metadata -> {
+                    versionCalculator.meta(metadata).ifPresent(metadataValue -> {
+                        project.getExtensions().getExtraProperties().set(metadata.name().toLowerCase(Locale.ENGLISH), metadataValue);
+                        project.getAllprojects().forEach(
+                                subproject -> subproject.getExtensions().getExtraProperties().set(metadata.name().toLowerCase(Locale.ENGLISH), metadataValue));
+                    });
+                });
             }
         });
     }

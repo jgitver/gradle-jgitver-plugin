@@ -47,9 +47,9 @@ Finally have a look at the [configuration](#configuration) paragraph to have ful
 
 ### Tasks
 
-#### Since 0.2.0
+#### Version
 
-The plugin automatically registers a task `version` which you can call to print out the calculated version of your project:
+Since 0.2.0 the plugin automatically registers a task `version` which you can call to print out the calculated version of your project:
 
 ```
 $ ./gradlew version
@@ -61,9 +61,7 @@ BUILD SUCCESSFUL
 Total time: 5.769 secs
 ```
 
-#### Before 0.2.0
-
-In order to know the current version of your project, just print out the version in a task looking like the following:
+Before 0.2.0, in order to know the current version of your project, just print out the version in a task looking like the following:
 
 ```
 task version {
@@ -120,6 +118,25 @@ The plugin used [jgitver](https://github.com/McFoggy/jgitver) with the following
 - _nonQualifierBranches_: `'master'`
 - _useDistance_: `true`
 - _useGitCommitId_: `false`
+
+### Metadatas
+
+Since `0.3.0`, jgitver [Metadatas](https://github.com/jgitver/jgitver/blob/master/src/main/java/fr/brouillard/oss/jgitver/metadata/Metadatas.java#L25) are exposed via gradle extension properties using the Metadata name in lower case.
+
+For example, one could enhance it's jar Manifest with the git commit id using:
+
+```
+apply plugin: 'java'
+apply plugin: 'fr.brouillard.oss.gradle.jgitver'
+
+jar {
+    doFirst {
+        manifest {
+            manifest.attributes 'X-GIT-SHA1': "$project.ext.git_sha1_full"
+        }
+    }
+}
+```
 
 ## Local build & sample test project
 
