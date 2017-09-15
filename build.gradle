@@ -1,3 +1,14 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.se.bjurr.gitchangelog:git-changelog-gradle-plugin:1.50"
+    }
+}
+
 plugins {
     id "com.gradle.plugin-publish" version "0.9.4"
     id "fr.brouillard.oss.gradle.jgitver" version "0.2.0"
@@ -5,6 +16,7 @@ plugins {
 
 apply plugin: 'java'
 apply plugin: 'maven'       // for local tests
+apply plugin: 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
 
 group = 'fr.brouillard.oss.gradle'
 
@@ -29,5 +41,9 @@ pluginBundle {
 
 dependencies {
     compile gradleApi()
-    compile 'fr.brouillard.oss:jgitver:0.4.0'
+    compile "fr.brouillard.oss:jgitver:0.4.0"
+}
+
+task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
+    file = new File("CHANGELOG.md");
 }
