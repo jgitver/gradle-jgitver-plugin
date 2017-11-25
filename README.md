@@ -100,13 +100,19 @@ jgitver {
 }
 ~~~~
 
-If you do not provide such a configuration (or fill only partial configuration) thye following defaults will be used
+If you do not provide such a configuration (or fill only partial configuration) the following defaults will be used
 - _mavenLike_: `false`
 - _autoIncrementPatch_: `true`
 - _useDistance_: `true`
+- _useDirty_: `false`
+- _failIfDirty_: `false`
+- _useGitCommitTimestamp_: `false`
+- _useDistance_: `true`
 - _useGitCommitId_: `false`
-- _gitCommitIDLength_: `8`
 - _nonQualifierBranches_: `'master'`
+- _regexVersionTag_: `'Java regexp pattern'`
+  - if non set or null then [jgitver](https://github.com/jgitver/jgitver) default applies
+  - the pattern must be a regular Java [Pattern](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) string with one matching group
 
 #### version < 0.2.0
 
@@ -140,15 +146,27 @@ jar {
 
 ## Local build & sample test project
 
-- `$ ./gradlew install` will install the current version inside the local maven repository
+- `$ ./gradlew install version` will install the current version inside the local maven repository and will print the published version
 - minimal test project `build.gradle` file
-  ~~~~
+  ````gradle
   buildscript {
     repositories {
     mavenLocal()
     }
     dependencies {
-      classpath "fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.1.1-1-configuration"
+      classpath "fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.3.1"
+    }
+  }
+  apply plugin: 'fr.brouillard.oss.gradle.jgitver'
+  ````
+- test project `build.gradle` file with Maven like versioning
+  ````gradle
+  buildscript {
+    repositories {
+    mavenLocal()
+    }
+    dependencies {
+      classpath "fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.3.1"
     }
   }
   apply plugin: 'fr.brouillard.oss.gradle.jgitver'
@@ -156,7 +174,18 @@ jar {
   jgitver {
     mavenLike true
   }
-  ~~~~
+  ````
+
+## Integration tests
+
+Some integration tests are available to make some manual trials/verifications of the plugin.
+
+````
+./gradlew install version
+cd src/test/integration/test
+./build.sh CONTEXT JGITVER_GRADLE_VERSION
+# example ./build.sh tag-regexp 0.3.2-1
+````
 
 ## Release
 

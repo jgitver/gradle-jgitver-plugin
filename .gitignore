@@ -1,7 +1,12 @@
-bin
-build
+bin/
+build/
 .classpath
 .project
 .gradle/
 .settings/
 .okhttpcache/
+src/test/integration/test/.git/
+src/test/integration/test/build/
+src/test/integration/test/.gradle/
+src/test/integration/test/build.gradle
+src/test/integration/test/content
