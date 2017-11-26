@@ -2,6 +2,57 @@
 
 Changelog of [jgitver gradle plugin](https://github.com/jgitver/gradle-jgitver-plugin)
 
+## 0.3.2
+### GitHub [#10](https://github.com/jgitver/gradle-jgitver-plugin/issues/10) upload and use 0.3.1 to bypass failed release 0.3.0
+
+**update to gradle-jgitver-plugin 0.3.1**
+
+ * closes #9, closes #10
+
+[6857b31afe715ef](https://github.com/jgitver/gradle-jgitver-plugin/commit/6857b31afe715ef) Matthieu Brouillard *2017-09-19 11:18:17*
+
+
+### GitHub [#7](https://github.com/jgitver/gradle-jgitver-plugin/issues/7) enhance configuration options
+
+**add configuration capabilities**
+
+ * also update to jgitver 0.5.0
+ * fixes #7
+
+[7c0228056a22ce6](https://github.com/jgitver/gradle-jgitver-plugin/commit/7c0228056a22ce6) Matthieu Brouillard *2017-11-25 11:14:24*
+
+
+### GitHub [#9](https://github.com/jgitver/gradle-jgitver-plugin/issues/9) missing artifacts for 0.3.0 release
+
+**update to gradle-jgitver-plugin 0.3.1**
+
+ * closes #9, closes #10
+
+[6857b31afe715ef](https://github.com/jgitver/gradle-jgitver-plugin/commit/6857b31afe715ef) Matthieu Brouillard *2017-09-19 11:18:17*
+
+
+## 0.3.1
+### GitHub [#8](https://github.com/jgitver/gradle-jgitver-plugin/issues/8) provide changelog file
+
+**introduction of a changelog file**
+
+ * using git-changelog-gradle-plugin, a CHANGELOG.md file can now be
+ * generated. Entering `gradle changelog` will update/generate the project
+ * changelog file.
+ * fixes #8
+
+[8bc40727c2a0bbb](https://github.com/jgitver/gradle-jgitver-plugin/commit/8bc40727c2a0bbb) Matthieu Brouillard *2017-09-15 11:34:05*
+
+
+### GitHub [#9](https://github.com/jgitver/gradle-jgitver-plugin/issues/9) missing artifacts for 0.3.0 release
+
+**update Gradle Publishing Plugin to 0.9.7**
+
+ * see #9
+
+[ed582d856aa22a1](https://github.com/jgitver/gradle-jgitver-plugin/commit/ed582d856aa22a1) Matthieu Brouillard *2017-09-19 10:34:24*
+
+
 ## 0.3.0
 ### GitHub [#5](https://github.com/jgitver/gradle-jgitver-plugin/issues/5) update to jgitver 0.4.0
 

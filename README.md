@@ -154,7 +154,7 @@ jar {
     mavenLocal()
     }
     dependencies {
-      classpath "fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.3.1"
+      classpath "fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.3.2"
     }
   }
   apply plugin: 'fr.brouillard.oss.gradle.jgitver'
@@ -166,7 +166,7 @@ jar {
     mavenLocal()
     }
     dependencies {
-      classpath "fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.3.1"
+      classpath "fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.3.2"
     }
   }
   apply plugin: 'fr.brouillard.oss.gradle.jgitver'
