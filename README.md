@@ -144,6 +144,20 @@ jar {
 }
 ```
 
+### Building on detached HEAD
+
+When working on a __detached HEAD__, as often on CI environments behind a SCM webhook, no branch information exists anymore from git.
+Since `0.4.1` it now possible to provide externally the branch information via a system property or an environment variable.
+
+- all operating systems/shells: `gradlew version -Djgitver.branch=mybranch`
+- bash only (_zsh?_) one line: `JGITVER_BRANCH=mybranch && gradlew version`
+- *nix shell: 
+    - `export JGITVER_BRANCH=mybranch`
+    - `gradlew version`
+- windows:
+    - `SET JGITVER_BRANCH=mybranch`
+    - `gradlew version`
+
 ## Local build & sample test project
 
 - `$ ./gradlew install version` will install the current version inside the local maven repository and will print the published version
