@@ -2,19 +2,19 @@
 
 gradle plugin to define project version using [jgitver](https://github.com/jgitver/jgitver).
 
-Starting from version _0.0.1_ [gradle-jgitver-plugin](https://github.com/jgitver/gradle-jgitver-plugin) is now published to the [gradle plugin portal](https://plugins.gradle.org/plugin/fr.brouillard.oss.gradle.jgitver).
+In order to find the latest version published of [gradle-jgitver-plugin](https://github.com/jgitver/gradle-jgitver-plugin), go to the [gradle plugin portal](https://plugins.gradle.org/plugin/fr.brouillard.oss.gradle.jgitver).
 
 ## Usage
 
 see the project [build.gradle](build.gradle) to see how the project is using itself to manage its own versions.
 
-In order to find the latest version published, go to the [gradle plugin portal](https://plugins.gradle.org/plugin/fr.brouillard.oss.gradle.jgitver).
+Find latest version of the plugin: [click here](https://plugins.gradle.org/plugin/fr.brouillard.oss.gradle.jgitver)
 
 ### Usage for modern gradle versions _(>= 2.1)_
 
 ```
 plugins {
-  id "fr.brouillard.oss.gradle.jgitver" version "X.Y.Z"
+  id "fr.brouillard.oss.gradle.jgitver" version "0.4.1"
 }
 ```
 
@@ -27,7 +27,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "gradle.plugin.fr.brouillard.oss.gradle:gradle-jgitver-plugin:X.Y.Z"
+    classpath "gradle.plugin.fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.4.1"
   }
 }
 
