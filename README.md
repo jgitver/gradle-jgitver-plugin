@@ -8,8 +8,17 @@ Starting from version _0.0.1_ [gradle-jgitver-plugin](https://github.com/jgitver
 
 see the project [build.gradle](build.gradle) to see how the project is using itself to manage its own versions.
 
+In order to find the latest version published, go to the [gradle plugin portal](https://plugins.gradle.org/plugin/fr.brouillard.oss.gradle.jgitver).
 
-### Usage for all gradle versions
+### Usage for modern gradle versions _(>= 2.1)_
+
+```
+plugins {
+  id "fr.brouillard.oss.gradle.jgitver" version "X.Y.Z"
+}
+```
+
+### Usage for all gradle versions _(including < 2.1)_
 ```
 buildscript {
   repositories {
@@ -25,15 +34,6 @@ buildscript {
 apply plugin: 'fr.brouillard.oss.gradle.jgitver'
 ```
 
-### Usage for gradle versions >= 2.1
-
-```
-plugins {
-  id "fr.brouillard.oss.gradle.jgitver" version "X.Y.Z"
-}
-```
-
-to find the latest version published, go to the [gradle plugin portal](https://plugins.gradle.org/plugin/fr.brouillard.oss.gradle.jgitver).
 
 ## Documentation
 
