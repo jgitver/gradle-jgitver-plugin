@@ -1,8 +1,11 @@
 package fr.brouillard.oss.gradle.plugins;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
+import fr.brouillard.oss.jgitver.BranchingPolicy;
 import org.gradle.api.Action;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
@@ -14,19 +17,13 @@ import fr.brouillard.oss.jgitver.metadata.Metadatas;
 public class JGitverPlugin implements Plugin<Project> {
     @Override
     public void apply(Project project) {
-        project.getExtensions().add("jgitver", JGitverPluginExtension.class);
+        project.getExtensions().create("jgitver", JGitverPluginExtension.class, project);
         project.getTasks().create("version", JGitverVersionTask.class);
 
         project.afterEvaluate(new Action<Project>() {
             @Override
             public void execute(Project evaluatedProject) {
-                JGitverPluginExtension jgitverConfiguration = project.getExtensions()
-                        .findByType(JGitverPluginExtension.class);
-
-                if (jgitverConfiguration == null) {
-                    // use defaults
-                    jgitverConfiguration = new JGitverPluginExtension();
-                }
+                JGitverPluginExtension jgitverConfiguration = project.getExtensions().findByType(JGitverPluginExtension.class);
 
                 GitVersionCalculator versionCalculator = GitVersionCalculator.location(project.getRootDir())
                         .setMavenLike(jgitverConfiguration.mavenLike)
@@ -37,7 +34,14 @@ public class JGitverPlugin implements Plugin<Project> {
                         .setUseGitCommitId(jgitverConfiguration.useGitCommitID)
                         .setGitCommitIdLength(jgitverConfiguration.gitCommitIDLength)
                         .setNonQualifierBranches(jgitverConfiguration.nonQualifierBranches);
-                
+
+                if (!jgitverConfiguration.policies.isEmpty()) {
+                    List<BranchingPolicy> branchingPolicies = jgitverConfiguration.policies.stream()
+                            .map(JGitverPlugin::toBranchingPolicy)
+                            .collect(Collectors.toList());
+                    versionCalculator.setQualifierBranchingPolicies(branchingPolicies);
+                }
+
                 if (jgitverConfiguration.regexVersionTag != null) {
                     versionCalculator = versionCalculator.setFindTagVersionPattern(jgitverConfiguration.regexVersionTag);
                 }
@@ -66,5 +70,9 @@ public class JGitverPlugin implements Plugin<Project> {
                 };
             }
         });
+    }
+
+    private static BranchingPolicy toBranchingPolicy(JGitverPluginExtensionBranchPolicy gradleBranchPolicy) {
+        return new BranchingPolicy(gradleBranchPolicy.pattern, gradleBranchPolicy.transformations);
     }
 }

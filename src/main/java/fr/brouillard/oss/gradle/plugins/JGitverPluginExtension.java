@@ -1,5 +1,13 @@
 package fr.brouillard.oss.gradle.plugins;
 
+import groovy.lang.Closure;
+import org.gradle.api.NamedDomainObjectContainer;
+import org.gradle.api.Project;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
+
 public class JGitverPluginExtension {
     public Boolean mavenLike = Boolean.FALSE;
     public Boolean autoIncrementPatch = Boolean.TRUE;
@@ -11,7 +19,15 @@ public class JGitverPluginExtension {
     public int gitCommitIDLength = 8;
     public String nonQualifierBranches = "master";
     public String regexVersionTag = null;
-    
+    public List<JGitverPluginExtensionBranchPolicy> policies;
+    private Project project;
+
+    @Inject
+    public JGitverPluginExtension(Project project) {
+        this.project = project;
+        this.policies = new ArrayList<>();
+    }
+
     public void mavenLike(boolean mavenLike) {
         this.mavenLike = mavenLike;
     }
@@ -50,5 +66,11 @@ public class JGitverPluginExtension {
 
     public void nonQualifierBranches(String nonQualifierBranches) {
         this.nonQualifierBranches = nonQualifierBranches;
+    }
+
+    public void policy(Closure closure) {
+        JGitverPluginExtensionBranchPolicy policy = new JGitverPluginExtensionBranchPolicy();
+        project.configure(policy, closure);
+        this.policies.add(policy);
     }
 }

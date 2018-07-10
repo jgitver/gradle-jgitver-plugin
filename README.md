@@ -96,7 +96,11 @@ jgitver {
   useDistance true/false
   useGitCommitID true/false
   gitCommitIDLength integer
-  nonQualifierBranches string    (comma separated list of branches) 
+  nonQualifierBranches string    (comma separated list of branches)
+  policy {                         repeatable closure
+    pattern string              (regexp with capturing group)
+    transformations array       (array of string)
+  }
 }
 ~~~~
 
@@ -124,6 +128,33 @@ The plugin used [jgitver](https://github.com/McFoggy/jgitver) with the following
 - _nonQualifierBranches_: `'master'`
 - _useDistance_: `true`
 - _useGitCommitId_: `false`
+
+#### Configuration examples
+
+##### provide specific branch policies
+
+Given the following configuration
+```
+jgitver {
+    policy {
+		pattern = 'feature_(.*)' 
+		transformations = ['REMOVE_UNEXPECTED_CHARS', 'UPPERCASE']
+	}
+    policy {
+		pattern = '(master)' 
+		transformations = ['IGNORE']
+	}
+}
+```
+
+when on branch `feature_login-page`, 3 commits after tag `1.0.0` then version resolution will be `1.0.1-3-LOGINPAGE`
+
+```
+$ gradlew version
+
+> Task :version
+Version: 1.0.1-3-LOGINPAGE
+```
 
 ### Metadatas
 
