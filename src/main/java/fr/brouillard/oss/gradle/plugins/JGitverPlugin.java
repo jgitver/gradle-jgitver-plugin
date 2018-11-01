@@ -3,12 +3,13 @@ package fr.brouillard.oss.gradle.plugins;
 import fr.brouillard.oss.jgitver.BranchingPolicy;
 import fr.brouillard.oss.jgitver.GitVersionCalculator;
 import fr.brouillard.oss.jgitver.metadata.Metadatas;
-import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.tooling.BuildException;
+
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class JGitverPlugin implements Plugin<Project> {
     @Override
@@ -28,6 +29,7 @@ public class JGitverPlugin implements Plugin<Project> {
                     .setUseGitCommitId(jgitverConfiguration.useGitCommitID)
                     .setGitCommitIdLength(jgitverConfiguration.gitCommitIDLength)
                     .setUseMaxVersion(jgitverConfiguration.useMaxVersion)
+                    .setMaxVersionSearchDepth(jgitverConfiguration.maxVersionSearchDepth)
                     .setNonQualifierBranches(jgitverConfiguration.nonQualifierBranches);
 
             if (!jgitverConfiguration.policies.isEmpty()) {
