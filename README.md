@@ -96,6 +96,7 @@ jgitver {
   useDistance true/false
   useGitCommitID true/false
   gitCommitIDLength integer
+  useMaxVersion true/false
   nonQualifierBranches string    (comma separated list of branches)
   policy {                         repeatable closure
     pattern string              (regexp with capturing group)
@@ -113,6 +114,7 @@ If you do not provide such a configuration (or fill only partial configuration) 
 - _useGitCommitTimestamp_: `false`
 - _useDistance_: `true`
 - _useGitCommitId_: `false`
+- _userMaxVersion_: `false`
 - _nonQualifierBranches_: `'master'`
 - _regexVersionTag_: `'Java regexp pattern'`
   - if non set or null then [jgitver](https://github.com/jgitver/jgitver) default applies

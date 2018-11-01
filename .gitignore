@@ -5,6 +5,8 @@ build/
 .gradle/
 .settings/
 .okhttpcache/
+.idea/
+*.iml
 src/test/integration/test/.git/
 src/test/integration/test/build/
 src/test/integration/test/.gradle/

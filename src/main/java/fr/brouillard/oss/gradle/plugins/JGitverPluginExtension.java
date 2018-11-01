@@ -1,12 +1,10 @@
 package fr.brouillard.oss.gradle.plugins;
 
 import groovy.lang.Closure;
-import org.gradle.api.NamedDomainObjectContainer;
-import org.gradle.api.Project;
-
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
+import org.gradle.api.Project;
 
 public class JGitverPluginExtension {
     public Boolean mavenLike = Boolean.FALSE;
@@ -17,6 +15,7 @@ public class JGitverPluginExtension {
     public Boolean useGitCommitTimestamp = Boolean.FALSE;
     public Boolean useGitCommitID = Boolean.FALSE;
     public int gitCommitIDLength = 8;
+    public Boolean useMaxVersion = Boolean.FALSE;
     public String nonQualifierBranches = "master";
     public String regexVersionTag = null;
     public List<JGitverPluginExtensionBranchPolicy> policies;
@@ -62,6 +61,10 @@ public class JGitverPluginExtension {
 
     public void gitCommitIDLength(int gitCommitIDLength) {
         this.gitCommitIDLength = gitCommitIDLength;
+    }
+
+    public void useMaxVersion(Boolean useMaxVersion) {
+        this.useMaxVersion = useMaxVersion;
     }
 
     public void nonQualifierBranches(String nonQualifierBranches) {
