@@ -96,6 +96,8 @@ jgitver {
   useDistance true/false
   useGitCommitID true/false
   gitCommitIDLength integer
+  useMaxVersion true/false
+  maxVersionSearchDepth integer
   nonQualifierBranches string    (comma separated list of branches)
   policy {                         repeatable closure
     pattern string              (regexp with capturing group)
@@ -113,6 +115,8 @@ If you do not provide such a configuration (or fill only partial configuration) 
 - _useGitCommitTimestamp_: `false`
 - _useDistance_: `true`
 - _useGitCommitId_: `false`
+- _userMaxVersion_: `false`
+- _maxVersionSearchDepth_: 1000
 - _nonQualifierBranches_: `'master'`
 - _regexVersionTag_: `'Java regexp pattern'`
   - if non set or null then [jgitver](https://github.com/jgitver/jgitver) default applies
@@ -196,7 +200,7 @@ Since `0.4.1` it now possible to provide externally the branch information via a
   ````gradle
   buildscript {
     repositories {
-    mavenLocal()
+      mavenLocal()
     }
     dependencies {
       classpath "fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.3.2"
@@ -208,7 +212,7 @@ Since `0.4.1` it now possible to provide externally the branch information via a
   ````gradle
   buildscript {
     repositories {
-    mavenLocal()
+      mavenLocal()
     }
     dependencies {
       classpath "fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.3.2"
