@@ -232,6 +232,13 @@ cd src/test/integration/test
 # example ./build.sh tag-regexp 0.3.2-1
 ````
 
+## Linux environment for windows users
+
+The easiest way to get started from Windows is to launch a docker container:
+
+- `docker -v run --rm -it -v %CD%:/project -w /project adoptopenjdk/openjdk8 /bin/bash`
+- `$ apt-get update && apt-get install -y git`
+
 ## Release
 
 - `git tag -a -s -m "release X.Y.Z, additionnal reason" X.Y.Z`: tag the current HEAD with the given tag name. The tag is signed by the author of the release. Adapt with gpg key of maintainer.
