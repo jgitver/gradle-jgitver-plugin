@@ -3,6 +3,9 @@ buildscript {
         maven {
             url "https://plugins.gradle.org/m2/"
         }
+        maven { 
+            url "https://jitpack.io" 
+        }
     }
     dependencies {
         classpath "gradle.plugin.se.bjurr.gitchangelog:git-changelog-gradle-plugin:1.50"
@@ -23,6 +26,9 @@ group = 'fr.brouillard.oss.gradle'
 repositories {
     jcenter()
     mavenCentral()
+    maven {
+        url "https://jitpack.io"
+    }
 }
 
 pluginBundle {
@@ -41,7 +47,7 @@ pluginBundle {
 
 dependencies {
     compile gradleApi()
-    compile "fr.brouillard.oss:jgitver:0.6.1"
+    compile "fr.brouillard.oss:jgitver:0.8.2"
 }
 
 task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
