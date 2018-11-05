@@ -25,10 +25,6 @@ group = 'fr.brouillard.oss.gradle'
 
 repositories {
     jcenter()
-    mavenCentral()
-    maven {
-        url "https://jitpack.io"
-    }
 }
 
 pluginBundle {
@@ -47,7 +43,7 @@ pluginBundle {
 
 dependencies {
     compile gradleApi()
-    compile "fr.brouillard.oss:jgitver:0.8.2"
+    compile "fr.brouillard.oss:jgitver:0.8.4"
 }
 
 task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {

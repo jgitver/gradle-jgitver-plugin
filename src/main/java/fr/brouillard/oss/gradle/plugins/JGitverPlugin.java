@@ -12,6 +12,7 @@ import org.gradle.api.Project;
 import org.gradle.tooling.BuildException;
 
 import fr.brouillard.oss.jgitver.GitVersionCalculator;
+import fr.brouillard.oss.jgitver.Strategies;
 import fr.brouillard.oss.jgitver.metadata.Metadatas;
 
 public class JGitverPlugin implements Plugin<Project> {
@@ -25,14 +26,28 @@ public class JGitverPlugin implements Plugin<Project> {
             public void execute(Project evaluatedProject) {
                 JGitverPluginExtension jgitverConfiguration = project.getExtensions().findByType(JGitverPluginExtension.class);
 
-                GitVersionCalculator versionCalculator = GitVersionCalculator.location(project.getRootDir())
-                        .setMavenLike(jgitverConfiguration.mavenLike)
+
+                GitVersionCalculator versionCalculator = GitVersionCalculator.location(project.getRootDir());
+
+                if (Boolean.TRUE.equals(jgitverConfiguration.mavenLike)) {
+                    project.getLogger().info(
+                            "usage of deprecated 'mavenLike' parameter takes precedence over 'strategy: {}'",
+                            jgitverConfiguration.strategy
+                    );
+                    versionCalculator.setStrategy(Strategies.MAVEN);
+                } else {
+                    versionCalculator.setStrategy(jgitverConfiguration.strategy);
+                }
+
+                versionCalculator
                         .setAutoIncrementPatch(jgitverConfiguration.autoIncrementPatch)
                         .setUseDistance(jgitverConfiguration.useDistance)
                         .setUseDirty(jgitverConfiguration.useDirty)
                         .setUseGitCommitTimestamp(jgitverConfiguration.useGitCommitTimestamp)
                         .setUseGitCommitId(jgitverConfiguration.useGitCommitID)
                         .setGitCommitIdLength(jgitverConfiguration.gitCommitIDLength)
+                        .setVersionPattern(jgitverConfiguration.versionPattern)
+                        .setTagVersionPattern(jgitverConfiguration.tagVersionPattern)
                         .setNonQualifierBranches(jgitverConfiguration.nonQualifierBranches);
 
                 if (!jgitverConfiguration.policies.isEmpty()) {

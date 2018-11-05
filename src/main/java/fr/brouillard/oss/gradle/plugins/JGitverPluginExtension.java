@@ -1,7 +1,7 @@
 package fr.brouillard.oss.gradle.plugins;
 
+import fr.brouillard.oss.jgitver.Strategies;
 import groovy.lang.Closure;
-import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.Project;
 
 import javax.inject.Inject;
@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JGitverPluginExtension {
-    public Boolean mavenLike = Boolean.FALSE;
+    public Strategies strategy = Strategies.CONFIGURABLE;
+    @Deprecated
+    public Boolean mavenLike = null;
     public Boolean autoIncrementPatch = Boolean.TRUE;
     public Boolean useDistance = Boolean.TRUE;
     public Boolean useDirty = Boolean.FALSE;
@@ -18,6 +20,8 @@ public class JGitverPluginExtension {
     public Boolean useGitCommitID = Boolean.FALSE;
     public int gitCommitIDLength = 8;
     public String nonQualifierBranches = "master";
+    public String versionPattern = null;
+    public String tagVersionPattern = null;
     public String regexVersionTag = null;
     public List<JGitverPluginExtensionBranchPolicy> policies;
     private Project project;
@@ -26,6 +30,14 @@ public class JGitverPluginExtension {
     public JGitverPluginExtension(Project project) {
         this.project = project;
         this.policies = new ArrayList<>();
+    }
+
+    public void strategy(Strategies strategy) {
+        this.strategy = strategy;
+    }
+
+    public void strategy(String strategy) {
+        this.strategy = Strategies.valueOf(strategy);
     }
 
     public void mavenLike(boolean mavenLike) {
@@ -66,6 +78,14 @@ public class JGitverPluginExtension {
 
     public void nonQualifierBranches(String nonQualifierBranches) {
         this.nonQualifierBranches = nonQualifierBranches;
+    }
+
+    public void versionPattern(String pattern) {
+        this.versionPattern = pattern;
+    }
+
+    public void tagVersionPattern(String pattern) {
+        this.tagVersionPattern = pattern;
     }
 
     public void policy(Closure closure) {
