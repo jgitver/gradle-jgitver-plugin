@@ -1,9 +1,25 @@
 buildscript {
   repositories {
-  mavenLocal()
+    mavenLocal()
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+    jcenter()
+    maven {
+      url "https://jitpack.io"
+    }
   }
   dependencies {
     classpath "fr.brouillard.oss.gradle:gradle-jgitver-plugin:${System.env.JGITVER_GRADLE_VERSION}"
+  }
+}
+
+repositories {
+  mavenLocal()
+  jcenter()
+  mavenCentral()
+  maven {
+    url "https://jitpack.io"
   }
 }
 apply plugin: 'fr.brouillard.oss.gradle.jgitver'

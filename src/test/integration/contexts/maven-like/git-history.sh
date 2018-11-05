@@ -9,4 +9,4 @@ dd if=/dev/urandom of=content bs=512 count=2
 git add .
 git commit --message=initial_commit
 git status
-git log --graph --oneline
+git log --graph --oneline --decorate=full

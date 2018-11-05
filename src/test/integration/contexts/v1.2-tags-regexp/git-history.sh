@@ -26,4 +26,4 @@ git add .
 git commit --message=third_commit
 git tag -a -m "v1.3.0" v1.3.0
 git status
-git log --graph --oneline
+git log --graph --oneline --decorate=full

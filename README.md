@@ -228,8 +228,8 @@ Some integration tests are available to make some manual trials/verifications of
 ````
 ./gradlew install version
 cd src/test/integration/test
-./build.sh CONTEXT JGITVER_GRADLE_VERSION
-# example ./build.sh tag-regexp 0.3.2-1
+./build.sh CONTEXT JGITVER_GRADLE_VERSION EXPECTED_COMPUTED_VERSION
+# example ./build.sh tag-regexp 0.5.1-2 2.0.1-1
 ````
 
 ## Linux environment for windows users
