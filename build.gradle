@@ -14,7 +14,7 @@ buildscript {
 
 plugins {
     id "com.gradle.plugin-publish" version "0.9.7"
-    id "fr.brouillard.oss.gradle.jgitver" version "0.4.1"
+    id "fr.brouillard.oss.gradle.jgitver" version "0.6.0"
 }
 
 apply plugin: 'java'
