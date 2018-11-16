@@ -23,6 +23,10 @@ apply plugin: 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
 
 group = 'fr.brouillard.oss.gradle'
 
+jgitver {
+    useDirty true
+}
+
 repositories {
     jcenter()
 }
