@@ -14,7 +14,7 @@ Find latest version of the plugin: [click here](https://plugins.gradle.org/plugi
 
 ```
 plugins {
-  id "fr.brouillard.oss.gradle.jgitver" version "0.6.0"
+  id "fr.brouillard.oss.gradle.jgitver" version "0.6.1"
 }
 ```
 
@@ -27,7 +27,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "gradle.plugin.fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.6.0"
+    classpath "gradle.plugin.fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.6.1"
   }
 }
 
