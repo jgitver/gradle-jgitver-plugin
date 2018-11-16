@@ -43,7 +43,7 @@ pluginBundle {
 
 dependencies {
     compile gradleApi()
-    compile "fr.brouillard.oss:jgitver:0.8.4"
+    compile "fr.brouillard.oss:jgitver:0.8.5"
 }
 
 task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
