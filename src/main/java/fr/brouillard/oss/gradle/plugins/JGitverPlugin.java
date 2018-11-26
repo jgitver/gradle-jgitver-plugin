@@ -40,6 +40,7 @@ public class JGitverPlugin implements Plugin<Project> {
                 }
 
                 versionCalculator
+                        .setMaxDepth(jgitverConfiguration.maxDepth)
                         .setAutoIncrementPatch(jgitverConfiguration.autoIncrementPatch)
                         .setUseDistance(jgitverConfiguration.useDistance)
                         .setUseDirty(jgitverConfiguration.useDirty)

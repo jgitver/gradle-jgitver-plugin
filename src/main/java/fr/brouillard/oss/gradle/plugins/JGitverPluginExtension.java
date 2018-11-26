@@ -19,6 +19,7 @@ public class JGitverPluginExtension {
     public Boolean useGitCommitTimestamp = Boolean.FALSE;
     public Boolean useGitCommitID = Boolean.FALSE;
     public int gitCommitIDLength = 8;
+    public int maxDepth = Integer.MAX_VALUE;
     public String nonQualifierBranches = "master";
     public String versionPattern = null;
     public String tagVersionPattern = null;
@@ -74,6 +75,10 @@ public class JGitverPluginExtension {
 
     public void gitCommitIDLength(int gitCommitIDLength) {
         this.gitCommitIDLength = gitCommitIDLength;
+    }
+
+    public void maxDepth(int maxDepth) {
+        this.maxDepth = maxDepth;
     }
 
     public void nonQualifierBranches(String nonQualifierBranches) {

@@ -91,29 +91,41 @@ Starting from `0.2.0` it is possible to configure the plugin inside the `build.g
 
 ~~~~
 jgitver {
-  mavenLike true/false
+  strategy MAVEN | CONFIGURABLE | PATTERN
+  mavenLike true/false          (deprecated, use strategy instead)
   autoIncrementPatch true/false
   useDistance true/false
+  useDirty true/false
+  failIfDirty true/false
+  useGitCommitTimestamp true/false
   useGitCommitID true/false
   gitCommitIDLength integer
-  nonQualifierBranches string    (comma separated list of branches)
+  maxDepth integer              ( >= 0.7.0) 
+  nonQualifierBranches string   (comma separated list of branches)
+  versionPattern string         (only for PATTERN strategy, >= 0.6.0)
+  tagVersionPattern string      (only for PATTERN strategy >= 0.6.0)
   policy {                         repeatable closure
     pattern string              (regexp with capturing group)
     transformations array       (array of string)
   }
 }
+
 ~~~~
 
 If you do not provide such a configuration (or fill only partial configuration) the following defaults will be used
+- _strategy_: `CONFIGURABLE`
 - _mavenLike_: `false`
 - _autoIncrementPatch_: `true`
 - _useDistance_: `true`
 - _useDirty_: `false`
 - _failIfDirty_: `false`
 - _useGitCommitTimestamp_: `false`
-- _useDistance_: `true`
-- _useGitCommitId_: `false`
+- _useGitCommitID_: `false`
+- _gitCommitIDLength_: `8`
+- _maxDepth_: `Integer.MAX_VALUE`
 - _nonQualifierBranches_: `'master'`
+- _versionPattern_: no default value
+- _tagVersionPattern_: no default value
 - _regexVersionTag_: `'Java regexp pattern'`
   - if non set or null then [jgitver](https://github.com/jgitver/jgitver) default applies
   - the pattern must be a regular Java [Pattern](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) string with one matching group
