@@ -47,7 +47,6 @@ pluginBundle {
   mavenCoordinates {
     groupId = "fr.brouillard.oss.gradle"
     artifactId = "gradle-jgitver-plugin"
-    version = project.version
   }
 }
 
