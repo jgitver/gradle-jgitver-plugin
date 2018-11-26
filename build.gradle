@@ -43,6 +43,12 @@ pluginBundle {
       displayName = 'jgitver Gradle plugin'
     }
   }
+
+  mavenCoordinates {
+    groupId = "fr.brouillard.oss.gradle"
+    artifactId = "gradle-jgitver-plugin"
+    version = project.version
+  }
 }
 
 dependencies {
