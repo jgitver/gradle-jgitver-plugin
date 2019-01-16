@@ -93,6 +93,7 @@ Starting from `0.2.0` it is possible to configure the plugin inside the `build.g
 jgitver {
   strategy MAVEN | CONFIGURABLE | PATTERN
   mavenLike true/false          (deprecated, use strategy instead)
+  policy MAX | LATEST | NEAREST
   autoIncrementPatch true/false
   useDistance true/false
   useDirty true/false
@@ -115,6 +116,7 @@ jgitver {
 If you do not provide such a configuration (or fill only partial configuration) the following defaults will be used
 - _strategy_: `CONFIGURABLE`
 - _mavenLike_: `false`
+- _policy_: `MAX`
 - _autoIncrementPatch_: `true`
 - _useDistance_: `true`
 - _useDirty_: `false`

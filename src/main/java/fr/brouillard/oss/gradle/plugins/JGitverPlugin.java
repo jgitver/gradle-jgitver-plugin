@@ -39,6 +39,10 @@ public class JGitverPlugin implements Plugin<Project> {
                     versionCalculator.setStrategy(jgitverConfiguration.strategy);
                 }
 
+                if (jgitverConfiguration.policy != null) {
+                    versionCalculator.setLookupPolicy(jgitverConfiguration.policy);
+                }
+
                 versionCalculator
                         .setMaxDepth(jgitverConfiguration.maxDepth)
                         .setAutoIncrementPatch(jgitverConfiguration.autoIncrementPatch)
