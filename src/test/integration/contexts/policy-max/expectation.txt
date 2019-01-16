@@ -1,0 +1,1 @@
+./build.sh policy-max $JGITVER_GRADLE_PLUGIN_VERSION 2.0.1-3

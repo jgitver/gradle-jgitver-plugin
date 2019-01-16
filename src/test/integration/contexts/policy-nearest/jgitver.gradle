@@ -1,0 +1,3 @@
+jgitver {
+    policy "NEAREST"
+}

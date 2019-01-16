@@ -1,0 +1,1 @@
+./build.sh policy-latest $JGITVER_GRADLE_PLUGIN_VERSION 1.1.1-2
