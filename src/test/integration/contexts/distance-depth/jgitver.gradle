@@ -1,0 +1,3 @@
+jgitver {
+    distanceCalculatorKind "DEPTH"
+}

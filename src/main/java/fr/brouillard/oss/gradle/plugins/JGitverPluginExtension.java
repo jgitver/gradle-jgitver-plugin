@@ -2,6 +2,7 @@ package fr.brouillard.oss.gradle.plugins;
 
 import fr.brouillard.oss.jgitver.LookupPolicy;
 import fr.brouillard.oss.jgitver.Strategies;
+import fr.brouillard.oss.jgitver.impl.DistanceCalculator;
 import groovy.lang.Closure;
 import org.gradle.api.Project;
 
@@ -26,6 +27,7 @@ public class JGitverPluginExtension {
     public String versionPattern = null;
     public String tagVersionPattern = null;
     public String regexVersionTag = null;
+    public DistanceCalculator.CalculatorKind distanceCalculatorKind = null;
     public List<JGitverPluginExtensionBranchPolicy> policies;
     private Project project;
 
@@ -107,5 +109,9 @@ public class JGitverPluginExtension {
         JGitverPluginExtensionBranchPolicy policy = new JGitverPluginExtensionBranchPolicy();
         project.configure(policy, closure);
         this.policies.add(policy);
+    }
+
+    public void distanceCalculatorKind(String kind) {
+        this.distanceCalculatorKind = DistanceCalculator.CalculatorKind.valueOf(kind);
     }
 }

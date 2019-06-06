@@ -3,6 +3,7 @@ package fr.brouillard.oss.gradle.plugins;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import fr.brouillard.oss.jgitver.BranchingPolicy;
@@ -26,24 +27,27 @@ public class JGitverPlugin implements Plugin<Project> {
             public void execute(Project evaluatedProject) {
                 JGitverPluginExtension jgitverConfiguration = project.getExtensions().findByType(JGitverPluginExtension.class);
 
+                Optional<String> oldDistanceKindSystemProperty = Optional.ofNullable(jgitverConfiguration.distanceCalculatorKind)
+                    .map(kind -> System.setProperty("jgitver.calculator.kind", kind.name()));
 
-                GitVersionCalculator versionCalculator = GitVersionCalculator.location(project.getRootDir());
+                try {
+                    GitVersionCalculator versionCalculator = GitVersionCalculator.location(project.getRootDir());
 
-                if (Boolean.TRUE.equals(jgitverConfiguration.mavenLike)) {
-                    project.getLogger().info(
+                    if (Boolean.TRUE.equals(jgitverConfiguration.mavenLike)) {
+                        project.getLogger().info(
                             "usage of deprecated 'mavenLike' parameter takes precedence over 'strategy: {}'",
                             jgitverConfiguration.strategy
-                    );
-                    versionCalculator.setStrategy(Strategies.MAVEN);
-                } else {
-                    versionCalculator.setStrategy(jgitverConfiguration.strategy);
-                }
+                        );
+                        versionCalculator.setStrategy(Strategies.MAVEN);
+                    } else {
+                        versionCalculator.setStrategy(jgitverConfiguration.strategy);
+                    }
 
-                if (jgitverConfiguration.policy != null) {
-                    versionCalculator.setLookupPolicy(jgitverConfiguration.policy);
-                }
+                    if (jgitverConfiguration.policy != null) {
+                        versionCalculator.setLookupPolicy(jgitverConfiguration.policy);
+                    }
 
-                versionCalculator
+                    versionCalculator
                         .setMaxDepth(jgitverConfiguration.maxDepth)
                         .setAutoIncrementPatch(jgitverConfiguration.autoIncrementPatch)
                         .setUseDistance(jgitverConfiguration.useDistance)
@@ -55,39 +59,42 @@ public class JGitverPlugin implements Plugin<Project> {
                         .setTagVersionPattern(jgitverConfiguration.tagVersionPattern)
                         .setNonQualifierBranches(jgitverConfiguration.nonQualifierBranches);
 
-                if (!jgitverConfiguration.policies.isEmpty()) {
-                    List<BranchingPolicy> branchingPolicies = jgitverConfiguration.policies.stream()
+                    if (!jgitverConfiguration.policies.isEmpty()) {
+                        List<BranchingPolicy> branchingPolicies = jgitverConfiguration.policies.stream()
                             .map(JGitverPlugin::toBranchingPolicy)
                             .collect(Collectors.toList());
-                    versionCalculator.setQualifierBranchingPolicies(branchingPolicies);
-                }
+                        versionCalculator.setQualifierBranchingPolicies(branchingPolicies);
+                    }
 
-                if (jgitverConfiguration.regexVersionTag != null) {
-                    versionCalculator = versionCalculator.setFindTagVersionPattern(jgitverConfiguration.regexVersionTag);
-                }
+                    if (jgitverConfiguration.regexVersionTag != null) {
+                        versionCalculator = versionCalculator.setFindTagVersionPattern(jgitverConfiguration.regexVersionTag);
+                    }
 
-                String gitCalculatedVersion = versionCalculator.getVersion();
+                    String gitCalculatedVersion = versionCalculator.getVersion();
 
-                boolean isDirty = versionCalculator
+                    boolean isDirty = versionCalculator
                         .meta(Metadatas.DIRTY)
                         .map(Boolean::parseBoolean)
                         .orElse(Boolean.FALSE);
-                
-                if (jgitverConfiguration.useDirty && jgitverConfiguration.failIfDirty && isDirty) {
-                    IllegalStateException cause = new IllegalStateException("jgitver detected a dirty state, project is configured to fail");
-                    throw new BuildException("jgitver stopped the build for a git dirty state", cause);    
-                }
-                
-                project.setVersion(gitCalculatedVersion);
-                project.getAllprojects().forEach(subproject -> subproject.setVersion(gitCalculatedVersion));
 
-                for (Metadatas metadata: Metadatas.values()) {
-                    versionCalculator.meta(metadata).ifPresent(metadataValue -> {
-                        project.getExtensions().getExtraProperties().set(metadata.name().toLowerCase(Locale.ENGLISH), metadataValue);
-                        project.getAllprojects().forEach(
+                    if (jgitverConfiguration.useDirty && jgitverConfiguration.failIfDirty && isDirty) {
+                        IllegalStateException cause = new IllegalStateException("jgitver detected a dirty state, project is configured to fail");
+                        throw new BuildException("jgitver stopped the build for a git dirty state", cause);
+                    }
+
+                    project.setVersion(gitCalculatedVersion);
+                    project.getAllprojects().forEach(subproject -> subproject.setVersion(gitCalculatedVersion));
+
+                    for (Metadatas metadata: Metadatas.values()) {
+                        versionCalculator.meta(metadata).ifPresent(metadataValue -> {
+                            project.getExtensions().getExtraProperties().set(metadata.name().toLowerCase(Locale.ENGLISH), metadataValue);
+                            project.getAllprojects().forEach(
                                 subproject -> subproject.getExtensions().getExtraProperties().set(metadata.name().toLowerCase(Locale.ENGLISH), metadataValue));
-                    });
-                };
+                        });
+                    };
+                } finally {
+                    oldDistanceKindSystemProperty.ifPresent(oldVAlue -> System.setProperty("jgitver.calculator.kind", oldVAlue));
+                }
             }
         });
     }
