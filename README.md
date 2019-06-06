@@ -109,6 +109,7 @@ jgitver {
     pattern string              (regexp with capturing group)
     transformations array       (array of string)
   }
+  distanceCalculatorKind FIRST_PARENT | LOG | DEPTH 
 }
 
 ~~~~
@@ -131,6 +132,7 @@ If you do not provide such a configuration (or fill only partial configuration) 
 - _regexVersionTag_: `'Java regexp pattern'`
   - if non set or null then [jgitver](https://github.com/jgitver/jgitver) default applies
   - the pattern must be a regular Java [Pattern](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) string with one matching group
+- distanceCalculatorKind: `FIRST_PARENT`
 
 #### version < 0.2.0
 
