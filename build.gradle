@@ -15,7 +15,7 @@ buildscript {
 
 plugins {
     id "com.gradle.plugin-publish" version "0.9.7"
-    id "fr.brouillard.oss.gradle.jgitver" version "0.7.0"
+    id "fr.brouillard.oss.gradle.jgitver" version "0.9.1"
 }
 
 apply plugin: 'java'
@@ -26,6 +26,7 @@ group = 'fr.brouillard.oss.gradle'
 
 jgitver {
     useDirty true
+    useDistance false
 }
 
 repositories {
