@@ -66,7 +66,8 @@ public class JGitverLazyVersionHolder {
                         .setGitCommitIdLength(jgitverConfiguration.gitCommitIDLength)
                         .setVersionPattern(jgitverConfiguration.versionPattern)
                         .setTagVersionPattern(jgitverConfiguration.tagVersionPattern)
-                        .setNonQualifierBranches(jgitverConfiguration.nonQualifierBranches);
+                        .setNonQualifierBranches(jgitverConfiguration.nonQualifierBranches)
+                        .setUseSnapshot(jgitverConfiguration.useSnapshot);
 
                 if (!jgitverConfiguration.policies.isEmpty()) {
                     List<BranchingPolicy> branchingPolicies = jgitverConfiguration.policies.stream()

@@ -21,6 +21,7 @@ public class JGitverPluginExtension {
     public Boolean failIfDirty = Boolean.FALSE;
     public Boolean useGitCommitTimestamp = Boolean.FALSE;
     public Boolean useGitCommitID = Boolean.FALSE;
+    public Boolean useSnapshot = Boolean.FALSE;
     public int gitCommitIDLength = 8;
     public int maxDepth = Integer.MAX_VALUE;
     public String nonQualifierBranches = "master";
@@ -83,6 +84,10 @@ public class JGitverPluginExtension {
 
     public void useGitCommitID(boolean useGitCommitID) {
         this.useGitCommitID = useGitCommitID;
+    }
+
+    public void useSnapshot(boolean useSnapshot) {
+        this.useSnapshot = useSnapshot;
     }
 
     public void gitCommitIDLength(int gitCommitIDLength) {
