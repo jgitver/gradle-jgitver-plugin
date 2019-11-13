@@ -97,6 +97,7 @@ jgitver {
   autoIncrementPatch true/false
   useDistance true/false
   useDirty true/false
+  useSnapshot true/false
   failIfDirty true/false
   useGitCommitTimestamp true/false
   useGitCommitID true/false
@@ -121,6 +122,7 @@ If you do not provide such a configuration (or fill only partial configuration) 
 - _autoIncrementPatch_: `true`
 - _useDistance_: `true`
 - _useDirty_: `false`
+- _useSnapshot_: `false`
 - _failIfDirty_: `false`
 - _useGitCommitTimestamp_: `false`
 - _useGitCommitID_: `false`
