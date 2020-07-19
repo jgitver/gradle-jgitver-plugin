@@ -9,14 +9,14 @@ plugins {
 group = "fr.brouillard.oss.gradle"
 
 jgitver {
-    useDirty true
+    useDirty = true
 }
 
 repositories {
     mavenCentral()
     jcenter()
     maven {
-        url "https://oss.sonatype.org/content/groups/public/"
+        url = uri("https://oss.sonatype.org/content/groups/public/")
     }
 }
 
@@ -24,18 +24,13 @@ pluginBundle {
   website = "https://github.com/jgitver/gradle-jgitver-plugin"
   vcsUrl = "https://github.com/jgitver/gradle-jgitver-plugin"
   description = "gradle plugin that defines automatically project version using jgitver"
-  tags = ["versioning", "jgitver", "git"]
+  tags = listOf("versioning", "jgitver", "git")
 
-  plugins {
-    jgitverPlugin {
+  (plugins) {
+    create("jgitverPlugin") {
       id = "fr.brouillard.oss.gradle.jgitver"
       displayName = "jgitver Gradle plugin"
     }
-  }
-
-  mavenCoordinates {
-    groupId = "fr.brouillard.oss.gradle"
-    artifactId = "gradle-jgitver-plugin"
   }
 }
 
@@ -44,10 +39,10 @@ dependencies {
     implementation("fr.brouillard.oss:jgitver:0.12.0")
 }
 
-task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
-    file = new File("CHANGELOG.md");
+tasks.register("changelog", se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask::class) {
+    file("CHANGELOG.md")
 }
 
-tasks.withType(JavaCompile) {
-    options.deprecation = true
+tasks.withType<JavaCompile> {
+    options.isDeprecation = true
 }
