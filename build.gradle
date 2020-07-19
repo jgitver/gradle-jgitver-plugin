@@ -1,10 +1,10 @@
 buildscript {
     repositories {
         maven {
-            url "https://plugins.gradle.org/m2/"
+            url = uri("https://plugins.gradle.org/m2/")
         }
         maven { 
-            url "https://jitpack.io" 
+            url = uri("https://jitpack.io")
         }
         mavenCentral()
     }
@@ -18,11 +18,11 @@ plugins {
     id "fr.brouillard.oss.gradle.jgitver" version "0.9.1"
 }
 
-apply plugin: 'java'
-apply plugin: 'maven'       // for local tests
-apply plugin: 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
+apply plugin: "java"
+apply plugin: "maven"       // for local tests
+apply plugin: "se.bjurr.gitchangelog.git-changelog-gradle-plugin"
 
-group = 'fr.brouillard.oss.gradle'
+group = "fr.brouillard.oss.gradle"
 
 jgitver {
     useDirty true
@@ -38,15 +38,15 @@ repositories {
 }
 
 pluginBundle {
-  website = 'https://github.com/jgitver/gradle-jgitver-plugin'
-  vcsUrl = 'https://github.com/jgitver/gradle-jgitver-plugin'
-  description = 'gradle plugin that defines automatically project version using jgitver'
-  tags = ['versioning', 'jgitver', 'git']
+  website = "https://github.com/jgitver/gradle-jgitver-plugin"
+  vcsUrl = "https://github.com/jgitver/gradle-jgitver-plugin"
+  description = "gradle plugin that defines automatically project version using jgitver"
+  tags = ["versioning", "jgitver", "git"]
 
   plugins {
     jgitverPlugin {
-      id = 'fr.brouillard.oss.gradle.jgitver'
-      displayName = 'jgitver Gradle plugin'
+      id = "fr.brouillard.oss.gradle.jgitver"
+      displayName = "jgitver Gradle plugin"
     }
   }
 
