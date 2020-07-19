@@ -8,19 +8,15 @@ buildscript {
         }
         mavenCentral()
     }
-    dependencies {
-        classpath "gradle.plugin.se.bjurr.gitchangelog:git-changelog-gradle-plugin:1.50"
-    }
 }
 
 plugins {
-    id "com.gradle.plugin-publish" version "0.9.7"
-    id "fr.brouillard.oss.gradle.jgitver" version "0.9.1"
+    id("com.gradle.plugin-publish") version "0.9.7"
+    id("fr.brouillard.oss.gradle.jgitver") version "0.9.1"
+    id("java")
+    id("maven")       // for local tests
+    id("se.bjurr.gitchangelog.git-changelog-gradle-plugin") version "1.50"
 }
-
-apply plugin: "java"
-apply plugin: "maven"       // for local tests
-apply plugin: "se.bjurr.gitchangelog.git-changelog-gradle-plugin"
 
 group = "fr.brouillard.oss.gradle"
 
