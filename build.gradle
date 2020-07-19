@@ -16,7 +16,7 @@ repositories {
     mavenCentral()
     jcenter()
     maven {
-        url "https://oss.sonatype.org/content/groups/public/"
+        url = uri("https://oss.sonatype.org/content/groups/public/")
     }
 }
 
