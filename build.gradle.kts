@@ -8,8 +8,8 @@ plugins {
 group = "fr.brouillard.oss.gradle"
 
 jgitver {
-    useDirty true
-    useDistance false
+    useDirty = true
+    useDistance = false
 }
 
 repositories {
@@ -23,12 +23,12 @@ repositories {
 pluginBundle {
   website = "https://github.com/jgitver/gradle-jgitver-plugin"
   vcsUrl = "https://github.com/jgitver/gradle-jgitver-plugin"
-  tags = ["versioning", "jgitver", "git"]
+  tags = listOf("versioning", "jgitver", "git")
 }
 
 gradlePlugin {
     plugins {
-        jgitverPlugin {
+        create("jgitverPlugin") {
             id = "fr.brouillard.oss.gradle.jgitver"
             displayName = "jgitver Gradle plugin"
             description = "gradle plugin that defines automatically project version using jgitver"
@@ -42,10 +42,10 @@ dependencies {
     implementation("fr.brouillard.oss:jgitver:0.12.0")
 }
 
-task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
-    file = new File("CHANGELOG.md");
+tasks.register("changelog", se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask::class) {
+    file("CHANGELOG.md")
 }
 
-tasks.withType(JavaCompile) {
-    options.deprecation = true
+tasks.withType<JavaCompile> {
+    options.isDeprecation = true
 }
