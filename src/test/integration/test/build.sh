@@ -1,9 +1,16 @@
 #!/bin/bash
 
+# find the scripts directory, cd to it and back after the script run
+# this will work if it is not symlinked, see for details here:
+# https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+pushd $DIR
+trap "popd" EXIT
+
 if [[ $# -ne 3 ]] ; then
-    echo 'Usage: build CONTEXT JGITVER_GRADLE_VERSION EXPECTED_COMPUTED_VERSION'
+    echo 'Usage: bash build.sh CONTEXT JGITVER_GRADLE_VERSION EXPECTED_COMPUTED_VERSION'
     echo ''
-    echo 'Example: ./build.sh merged-branches 0.5.1-2 2.0.1-1'
+    echo 'Example: bash build.sh merged-branches 0.5.1-2 2.0.1-1'
     echo ''
     exit 1
 fi
