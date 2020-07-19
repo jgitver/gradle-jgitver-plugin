@@ -1,13 +1,11 @@
 package fr.brouillard.oss.gradle.plugins;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import fr.brouillard.oss.jgitver.BranchingPolicy;
-import org.gradle.api.Action;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.tooling.BuildException;
