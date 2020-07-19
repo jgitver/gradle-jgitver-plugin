@@ -242,10 +242,14 @@ Since `0.4.1` it now possible to provide externally the branch information via a
 Some integration tests are available to make some manual trials/verifications of the plugin.
 
 ````
-./gradlew install version
-cd src/test/integration/test
-./build.sh CONTEXT JGITVER_GRADLE_VERSION EXPECTED_COMPUTED_VERSION
-# example ./build.sh tag-regexp 0.5.1-2 2.0.1-1
+./gradlew publishToMavenLocal version
+bash src/test/integration/test/build.sh CONTEXT JGITVER_GRADLE_VERSION EXPECTED_COMPUTED_VERSION
+# example bash src/test/integration/test/build.sh tag-regexp 0.9.2-rc01-dirty 2.0.1-1
+````
+To run all tests do:
+````
+export JGITVER_GRADLE_VERSION=`bash gradlew publishToMavenLocal version | grep "Version:" | awk '{print $2}'`
+bash src/test/integration/test/test-all $JGITVER_GRADLE_VERSION
 ````
 
 ## Linux environment for windows users
