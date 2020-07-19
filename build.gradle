@@ -1,11 +1,10 @@
 plugins {
-    id "com.gradle.plugin-publish" version "0.9.7"
-    id "fr.brouillard.oss.gradle.jgitver" version "0.7.0"
+    id("com.gradle.plugin-publish") version "0.9.7"
+    id("fr.brouillard.oss.gradle.jgitver") version "0.7.0"
+    id("java")
+    id("maven")       // for local tests
     id("se.bjurr.gitchangelog.git-changelog-gradle-plugin") version "1.64"
 }
-
-apply plugin: 'java'
-apply plugin: 'maven'       // for local tests
 
 group = 'fr.brouillard.oss.gradle'
 
