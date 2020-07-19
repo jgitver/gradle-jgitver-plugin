@@ -2,6 +2,7 @@ plugins {
     id("com.gradle.plugin-publish") version "0.12.0"
     id("fr.brouillard.oss.gradle.jgitver") version "0.9.1"
     id("java-gradle-plugin")
+    id("maven-publish")
     id("se.bjurr.gitchangelog.git-changelog-gradle-plugin") version "1.64"
 }
 

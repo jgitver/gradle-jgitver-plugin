@@ -10,9 +10,9 @@ fi
 
 if [[ -f ../contexts/$1/jgitver.gradle ]] ; then
     if [[ -f ../contexts/$1/git-history.sh ]] ; then
-        ../contexts/$1/git-history.sh
+        bash ../contexts/$1/git-history.sh
         cat base-build.gradle ../contexts/$1/jgitver.gradle > build.gradle
-        (export JGITVER_GRADLE_VERSION=$2 && ./gradlew -b build.gradle version) | tee build.log
+        (export JGITVER_GRADLE_VERSION=$2 && bash gradlew -b build.gradle version) | tee build.log
         COMPUTED_VERSION=`grep Version: build.log | cut -f 2 -d ' '`
         rm build.log
         if [ "$COMPUTED_VERSION" != "$3" ]; then
