@@ -1,5 +1,7 @@
 # gradle-jgitver-plugin
 
+[![Build Status](https://travis-ci.org/jgitver/gradle-jgitver-plugin.svg?branch=master)](https://travis-ci.org/jgitver/gradle-jgitver-plugin)
+
 gradle plugin to define project version using [jgitver](https://github.com/jgitver/jgitver).
 
 In order to find the latest version published of [gradle-jgitver-plugin](https://github.com/jgitver/gradle-jgitver-plugin), go to the [gradle plugin portal](https://plugins.gradle.org/plugin/fr.brouillard.oss.gradle.jgitver).
