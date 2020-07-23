@@ -41,6 +41,11 @@ dependencies {
     implementation("fr.brouillard.oss:jgitver:0.12.0")
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 tasks.register("changelog", se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask::class) {
     file("CHANGELOG.md")
 }
