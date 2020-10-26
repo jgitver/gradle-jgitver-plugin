@@ -8,7 +8,7 @@ In order to find the latest version published of [gradle-jgitver-plugin](https:/
 
 ## Usage
 
-see the project [build.gradle](build.gradle) to see how the project is using itself to manage its own versions.
+see the project [build.gradle.kts](build.gradle.kts) to see how the project is using itself to manage its own versions.
 
 Find latest version of the plugin: [click here](https://plugins.gradle.org/plugin/fr.brouillard.oss.gradle.jgitver)
 
