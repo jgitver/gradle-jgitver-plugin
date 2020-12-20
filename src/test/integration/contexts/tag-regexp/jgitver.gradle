@@ -1,4 +1,0 @@
-jgitver {
-  mavenLike false
-  regexVersionTag 'r(.*)'
-}

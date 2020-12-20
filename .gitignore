@@ -8,7 +8,8 @@ build/
 src/test/integration/test/.git/
 src/test/integration/test/build/
 src/test/integration/test/.gradle/
-src/test/integration/test/build.gradle
+src/test/integration/test/build.gradle.kts
 src/test/integration/test/content
 .idea/
 *.iml
+
