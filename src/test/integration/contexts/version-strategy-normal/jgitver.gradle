@@ -1,5 +1,0 @@
-jgitver {
-  strategy "PATTERN"
-  versionPattern "\${v}-standard"
-  tagVersionPattern "\${v}-tag"
-}

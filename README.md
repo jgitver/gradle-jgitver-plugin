@@ -10,9 +10,7 @@ In order to find the latest version published of [gradle-jgitver-plugin](https:/
 
 see the project [build.gradle.kts](build.gradle.kts) to see how the project is using itself to manage its own versions.
 
-Find latest version of the plugin: [click here](https://plugins.gradle.org/plugin/fr.brouillard.oss.gradle.jgitver)
-
-### Usage for modern gradle versions _(>= 2.1)_
+### Add the plugin
 
 ```
 plugins {
@@ -20,22 +18,20 @@ plugins {
 }
 ```
 
-### Usage for all gradle versions _(including < 2.1)_
-```
-buildscript {
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-  }
-  dependencies {
-    classpath "gradle.plugin.fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.9.1"
-  }
-}
+### Use it
 
-apply plugin: 'fr.brouillard.oss.gradle.jgitver'
-```
+Besides calculating a version automatically when running any gradle task, like `gradle build`, the plugin registers a
+task `version` which you can call to print out the calculated version of your project:
 
+```
+$ ./gradlew version
+
+> Task :version
+Version: 0.10.1-rc03-2-dirty
+
+BUILD SUCCESSFUL in 1s
+1 actionable task: 1 executed
+```
 
 ## Documentation
 
@@ -47,49 +43,11 @@ Finally have a look at the [configuration](#configuration) paragraph to have ful
 
 ![Gradle Example](src/doc/images/gradle-example.gif?raw=true "Gradle Example")
 
-### Tasks
-
-#### Version
-
-Since 0.2.0 the plugin automatically registers a task `version` which you can call to print out the calculated version of your project:
-
-```
-$ ./gradlew version
-:version
-Version: 0.0.2-4
-
-BUILD SUCCESSFUL
-
-Total time: 5.769 secs
-```
-
-Before 0.2.0, in order to know the current version of your project, just print out the version in a task looking like the following:
-
-```
-task version {
-    doLast {
-        println 'Version: ' + version
-    }
-}
-```
-
-then just call the task
-
-```
-$ ./gradlew version
-:version
-Version: 0.0.2-4
-
-BUILD SUCCESSFUL
-
-Total time: 5.769 secs
-```
-
 ### Configuration
 
-#### version >= 0.2.0
+#### build.gradle
 
-Starting from `0.2.0` it is possible to configure the plugin inside the `build.gradle`.
+Optionally, configure the plugin inside the `build.gradle`.
 
 ~~~~
 jgitver {
@@ -104,10 +62,10 @@ jgitver {
   useGitCommitTimestamp true/false
   useGitCommitID true/false
   gitCommitIDLength integer
-  maxDepth integer              ( >= 0.7.0) 
+  maxDepth integer
   nonQualifierBranches string   (comma separated list of branches)
-  versionPattern string         (only for PATTERN strategy, >= 0.6.0)
-  tagVersionPattern string      (only for PATTERN strategy >= 0.6.0)
+  versionPattern string         (only for PATTERN strategy)
+  tagVersionPattern string      (only for PATTERN strategy)
   policy {                         repeatable closure
     pattern string              (regexp with capturing group)
     transformations array       (array of string)
@@ -117,6 +75,37 @@ jgitver {
 
 ~~~~
 
+#### build.gradle.kts
+
+Optionally, configure the plugin inside the `build.gradle.kts`.
+
+~~~~
+jgitver {
+  strategy = fr.brouillard.oss.jgitver.Strategies.PATTERN | MAVEN | CONFIGURABLE
+  mavenLike = true/false            (deprecated, use strategy instead)
+  policy = fr.brouillard.oss.jgitver.LookupPolicy.MAX | LATEST | NEAREST
+  autoIncrementPatch = true/false
+  useDistance = true/false
+  useDirty = true/false
+  useSnapshot = true/false
+  failIfDirty = true/false
+  useGitCommitTimestamp = true/false
+  useGitCommitID = true/false
+  gitCommitIDLength = integer
+  maxDepth = integer
+  nonQualifierBranches = "string"   (comma separated list of branches)
+  versionPattern = "string"         (only for PATTERN strategy)
+  tagVersionPattern = "string"      (only for PATTERN strategy)
+  policy {                          repeatable closure
+    pattern = "string"              (regexp with capturing group)
+    transformations array           (array of string)
+  }
+  distanceCalculatorKind = fr.brouillard.oss.jgitver.impl.DistanceCalculator.CalculatorKind.FIRST_PARENT | LOG | DEPTH 
+}
+
+~~~~
+
+#### Defaults
 If you do not provide such a configuration (or fill only partial configuration) the following defaults will be used
 - _strategy_: `CONFIGURABLE`
 - _mavenLike_: `false`
@@ -138,20 +127,7 @@ If you do not provide such a configuration (or fill only partial configuration) 
   - the pattern must be a regular Java [Pattern](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) string with one matching group
 - distanceCalculatorKind: `FIRST_PARENT`
 
-#### version < 0.2.0
-
-Before `0.2.0` no configuration was possible.  
-The plugin used [jgitver](https://github.com/McFoggy/jgitver) with the following settings:
-
-- _mavenLike_: `false`
-- _autoIncrementPatch_: `true`
-- _nonQualifierBranches_: `'master'`
-- _useDistance_: `true`
-- _useGitCommitId_: `false`
-
-#### Configuration examples
-
-##### provide specific branch policies
+#### Example to provide specific branch policies
 
 Given the following configuration
 ```
@@ -176,9 +152,9 @@ $ gradlew version
 Version: 1.0.1-3-LOGINPAGE
 ```
 
-### Metadatas
+#### Add metadata
 
-Since `0.3.0`, jgitver [Metadatas](https://github.com/jgitver/jgitver/blob/master/src/main/java/fr/brouillard/oss/jgitver/metadata/Metadatas.java#L25) are exposed via gradle extension properties using the Metadata name in lower case.
+Jgitver [Metadatas](https://github.com/jgitver/jgitver/blob/master/src/main/java/fr/brouillard/oss/jgitver/metadata/Metadatas.java#L25) are exposed via gradle extension properties using the Metadata name in lower case.
 
 For example, one could enhance it's jar Manifest with the git commit id using:
 
@@ -195,10 +171,10 @@ jar {
 }
 ```
 
-### Building on detached HEAD
+#### Building on detached HEAD
 
 When working on a __detached HEAD__, as often on CI environments behind a SCM webhook, no branch information exists anymore from git.
-Since `0.4.1` it now possible to provide externally the branch information via a system property or an environment variable.
+It is possible to provide externally the branch information via a system property or an environment variable.
 
 - all operating systems/shells: `gradlew version -Djgitver.branch=mybranch`
 - bash only (_zsh?_) one line: `JGITVER_BRANCH=mybranch && gradlew version`
@@ -212,32 +188,26 @@ Since `0.4.1` it now possible to provide externally the branch information via a
 ## Local build & sample test project
 
 - `$ ./gradlew install version` will install the current version inside the local maven repository and will print the published version
-- minimal test project `build.gradle` file
+- minimal test project `build.gradle.kts` file
   ````gradle
-  buildscript {
-    repositories {
-    mavenLocal()
-    }
-    dependencies {
-      classpath "fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.3.2"
-    }
+  plugins {
+    id("fr.brouillard.oss.gradle.jgitver") version "0.9.1"
   }
-  apply plugin: 'fr.brouillard.oss.gradle.jgitver'
+  repositories {
+    mavenLocal()
+  }
   ````
-- test project `build.gradle` file with Maven like versioning
+- test project `build.gradle.kts` file with Maven like versioning
   ````gradle
-  buildscript {
-    repositories {
-    mavenLocal()
-    }
-    dependencies {
-      classpath "fr.brouillard.oss.gradle:gradle-jgitver-plugin:0.3.2"
-    }
+  plugins {
+    id("fr.brouillard.oss.gradle.jgitver") version "0.9.1"
   }
-  apply plugin: 'fr.brouillard.oss.gradle.jgitver'
+  repositories {
+    mavenLocal()
+  }
   
   jgitver {
-    mavenLike true
+    strategy = fr.brouillard.oss.jgitver.Strategies.MAVEN
   }
   ````
 
@@ -246,10 +216,13 @@ Since `0.4.1` it now possible to provide externally the branch information via a
 Some integration tests are available to make some manual trials/verifications of the plugin.
 
 ````
+# first install it into the local maven repo, then read the current version into a variable,
+# afterwards call it using the following schema:
+# bash src/test/integration/test/build.sh CONTEXT JGITVER_GRADLE_VERSION EXPECTED_COMPUTED_VERSION
 ./gradlew install version
-cd src/test/integration/test
-./build.sh CONTEXT JGITVER_GRADLE_VERSION EXPECTED_COMPUTED_VERSION
-# example ./build.sh tag-regexp 0.5.1-2 2.0.1-1
+GRADLE_JGIT_VERSION=`gradle version | grep "Version" | awk '{print $2}'`
+echo GRADLE_JGIT_VERSION
+./src/test/integration/test/build.sh tag-regexp ${GRADLE_JGIT_VERSION} 2.0.1-1
 ````
 
 ## Linux environment for windows users
